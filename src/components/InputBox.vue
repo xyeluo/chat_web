@@ -27,8 +27,8 @@ export default {
   height: $height;
 }
 #inputBg {
-  $input_bgColor:var(--top_inputBox_bg);
-  $send_bgColor:var(--all_fontColor);
+  $input_bgColor: var(--top_inputBox_bg);
+  $send_bgColor: var(--all_fontColor);
   height: 55px;
   background-color: $input_bgColor;
   #inputBox {
@@ -38,16 +38,21 @@ export default {
       display: flex;
       align-items: center;
       justify-content: center;
-      opacity: 0.7;
+
       #sendBox {
-        #send_input,#send {
+        opacity: 0.7;
+        &:hover {
+          opacity: 1;
+        }
+        #send_input,
+        #send {
           display: inline-block;
         }
-        #send_input{
-          transition: width .5s linear;
+        #send_input {
+          transition: width 0.5s linear;
           border-bottom: solid 1px rgba($color: #fff, $alpha: 0.5);
           padding: 5px 10px;
-          input{
+          input {
             // margin: 5px 10px;
             width: 100%;
             height: 20px;
@@ -59,20 +64,16 @@ export default {
           }
         }
         #send {
-          $height_line:32px;
+          $height_line: 32px;
           background-color: $send_bgColor;
-          @include w_h_Value($height_line,$height_line);
-          line-height:
-          $height_line;
+          @include w_h_Value($height_line, $height_line);
+          line-height: $height_line;
           text-align: center;
           border-radius: 50%;
-          .fa-send{
+          .fa-send {
             color: $input_bgColor;
           }
         }
-      }
-      &:hover{
-        opacity: 1;
       }
     }
   }
