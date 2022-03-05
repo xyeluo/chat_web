@@ -8,7 +8,7 @@
           <span class="dot"></span>
         </div>
         <div id="sign"></div>
-        <div id="timeBox">10:00</div>
+        <div id="timeBox">{{ time }}</div>
       </div>
       <div id="userBox">
         <h3 id="user">user1</h3>
@@ -18,8 +18,23 @@
 </template>
 
 <script>
+import moment from "moment";
 export default {
   name: "TopBox",
+  data() {
+    return {
+      time: "",
+    };
+  },
+  methods: {
+    getNowTime() {
+      this.time = moment().format("HH:mm");
+      return this.getNowTime;
+    },
+  },
+  mounted() {
+    setInterval(this.getNowTime(), 1000);
+  },
 };
 </script>
 

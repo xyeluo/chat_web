@@ -1,14 +1,14 @@
 <template>
-  <div class="itemBox sender">
+  <div class="itemBox" :class="msg.who">
     <div class="messageContent">
       <!-- <i class="arrow"></i> -->
       <div class="messageBox">
         <div class="message">
           <p>
-            {{message}}
+            {{ msg.content }}
           </p>
         </div>
-        <div class="sendTime">10:00</div>
+        <div class="sendTime">{{ msg.date }}</div>
       </div>
       <i class="arrow"></i>
     </div>
@@ -18,7 +18,19 @@
 <script>
 export default {
   name: "ItemBox",
-  props:['message'],
+  /**
+   * msg: {
+      who: "sender",
+      content: "hello world!",
+      date: "11:00",
+    }
+   */
+  props: ["msg"],
+  data() {
+    return {
+      time: "",
+    };
+  },
 };
 </script>
 

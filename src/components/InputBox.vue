@@ -2,11 +2,15 @@
   <div id="inputBg">
     <div id="inputBox" class="interval">
       <div id="inputMain">
-        <form id="sendBox" @keydown.enter.prevent>
+        <form id="sendBox" @keydown.enter.prevent="send">
           <div id="send_input" class="interval">
-            <input type="text" placeholder="Type your mesage..." />
+            <input
+              type="text"
+              v-model="msg"
+              placeholder="Type your mesage..."
+            />
           </div>
-          <div id="send">
+          <div id="send" @click="send">
             <span class="fa fa-send"></span>
           </div>
         </form>
@@ -16,8 +20,30 @@
 </template>
 
 <script>
+import moment from "moment";
 export default {
   name: "InputBox",
+  data() {
+    return {
+      msg: "",
+    };
+  },
+  methods: {
+    send() {
+      if (!this.msg) {
+        return;
+      }
+      let date = moment().format("H:mm");
+      const message = {
+        who: "sender",
+        msg: this.msg,
+        date: date,
+      };
+      // 把输入的消息传到聊天框组件
+      this.$bus.$emit("add",message);
+      this.msg = "";
+    },
+  },
 };
 </script>
 
