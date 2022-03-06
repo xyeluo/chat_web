@@ -2,7 +2,9 @@
   <div id="dialogBox">
     <div id="dialogMain" ref="scorll" class="interval">
       <div id="scorll" ref="scorllBox">
-        <ItemBox v-for="(item,index) in sub" :key="index" :msg="item.msg" />
+        <transition-group appear enter-active-class="animate__animated animate__fadeIn">
+          <ItemBox v-for="(item, index) in sub" :key="index" :msg="item.msg" />
+        </transition-group>
       </div>
     </div>
   </div>
@@ -18,7 +20,6 @@ export default {
     };
   },
   methods: {
-    
     // 信息添加到聊天框
     add(data) {
       let len = this.sub.length;
@@ -44,7 +45,7 @@ export default {
     },
     // 信息储存到本地
     localStorageSave(parms) {
-      localStorage.setItem("sub",parms);
+      localStorage.setItem("sub", parms);
     },
   },
   components: {
@@ -74,16 +75,16 @@ export default {
   mounted() {
     this.$bus.$on("add", this.add);
     this.$bus.$on("initChatting", (parms) => {
-      this.sub=[];
-      for(let index in parms.sub){
-        this.sub.push(parms.sub[index])
+      this.sub = [];
+      for (let index in parms.sub) {
+        this.sub.push(parms.sub[index]);
         // console.log(parms.sub[index]);
       }
       // this.localStorageSave(parms.sub);
     });
     this.$nextTick(() => {
-    this.localStorageRead();
-    })
+      this.localStorageRead();
+    });
   },
   beforeDestroy() {
     this.$bus.$off("add");

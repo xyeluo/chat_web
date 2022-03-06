@@ -27,7 +27,7 @@ export default {
     getChattingMessage() {
       axios({
         method: "get",
-        url: `//localhost:15672${window.location.pathname}queryChatting`,
+        url: `http://192.168.31.180:15672${window.location.pathname}queryChatting`,
       }).then((res) => {
         // 初始化加载用户信息：from、to、sub
         this.$bus.$emit("initChatting", res.data);

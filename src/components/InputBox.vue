@@ -41,7 +41,7 @@ export default {
     sendMsgToServer(increase) {
       axios({
         method: "post",
-        url: `//localhost:15672${window.location.pathname}increaseChatting`,
+        url: `http://192.168.31.180:15672${window.location.pathname}increaseChatting`,
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
         },
