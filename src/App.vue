@@ -2,7 +2,6 @@
   <div id="app">
     <div id="bg" class="centerBox default">
       <TopBox />
-
       <DialogBox />
       <InputBox />
     </div>
@@ -14,7 +13,6 @@ import TopBox from "./components/TopBox.vue";
 import InputBox from "./components/InputBox.vue";
 import DialogBox from "./components/DialogBox.vue";
 import axios from "axios";
-// import qs from 'qs';
 export default {
   name: "App",
 
@@ -27,7 +25,7 @@ export default {
     getChattingMessage() {
       axios({
         method: "get",
-        url: `http://localhost:80${window.location.pathname}queryChatting`,
+        url: `http://192.168.31.180:80${window.location.pathname}queryChatting`, 
       }).then((res) => {
         // 初始化加载用户信息：from、to、sub
         this.$bus.$emit("initChatting", res.data);

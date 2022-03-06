@@ -4,14 +4,16 @@ const fs = require("fs");
 const qs = require("qs");
 const readline = require("readline");
 const server = express();
-server.listen(15672, () => {
+server.listen(80, () => {
   console.log("http://127.0.0.1:15672");
 });
 // 设置账号
 const user = {
+  // 请求路径：对应的账号名
   user_3701: "test_user01",
   user_9268: "test_user02",
 };
+// 聊天记录储存文件
 const dbFilePath = "./user/demo.txt";
 
 // 对用户首页路径判断
