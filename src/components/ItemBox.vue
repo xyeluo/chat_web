@@ -8,7 +8,7 @@
             {{ msg.content }}
           </p>
         </div>
-        <div class="sendTime">{{ msg.date }}</div>
+        <div class="sendTime">{{ time }}</div>
       </div>
       <i class="arrow"></i>
     </div>
@@ -16,6 +16,7 @@
 </template>
 
 <script>
+import moment from 'moment';
 export default {
   name: "ItemBox",
   /**
@@ -28,7 +29,7 @@ export default {
   props: ["msg"],
   data() {
     return {
-      time: "",
+      time: moment(this.msg.date,moment.ISO_8601).format("HH:mm"),
     };
   },
 };

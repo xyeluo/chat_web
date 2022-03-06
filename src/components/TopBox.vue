@@ -11,7 +11,7 @@
         <div id="timeBox">{{ time }}</div>
       </div>
       <div id="userBox">
-        <h3 id="user">user1</h3>
+        <h3 id="user">{{user}}</h3>
       </div>
     </div>
   </div>
@@ -23,6 +23,7 @@ export default {
   name: "TopBox",
   data() {
     return {
+      user:"",
       time: "",
     };
   },
@@ -34,7 +35,13 @@ export default {
   },
   mounted() {
     setInterval(this.getNowTime(), 1000);
+    this.$bus.$on("initChatting",(parms) => {
+      this.user=parms.from;
+    })
   },
+  beforeDestroy(){
+    this.$bus.$off("initChatting");
+  }
 };
 </script>
 

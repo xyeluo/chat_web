@@ -2,6 +2,7 @@
   <div id="app">
     <div id="bg" class="centerBox default">
       <TopBox />
+
       <DialogBox />
       <InputBox />
     </div>
@@ -12,13 +13,33 @@
 import TopBox from "./components/TopBox.vue";
 import InputBox from "./components/InputBox.vue";
 import DialogBox from "./components/DialogBox.vue";
-
+import axios from "axios";
+// import qs from 'qs';
 export default {
   name: "App",
+
   components: {
     InputBox,
     DialogBox,
     TopBox,
+  },
+  methods: {
+    getChattingMessage() {
+      axios({
+        method: "get",
+        url: `//localhost:15672${window.location.pathname}queryChatting`,
+      }).then((res) => {
+        // 初始化加载用户信息：from、to、sub
+        this.$bus.$emit("initChatting", res.data);
+        // console.log(res.data);
+        // console.log(res.data);
+      });
+      return this.getChattingMessage;
+    },
+  },
+  created() {
+    setInterval(this.getChattingMessage(),5000);
+    // this.getChattingMessage();
   },
 };
 </script>
@@ -64,7 +85,7 @@ export default {
   .message {
     max-width: 470px;
   }
-  #send_input{
+  #send_input {
     width: 420px;
   }
 }
@@ -72,7 +93,7 @@ export default {
   .message {
     max-width: 370px;
   }
-  #send_input{
+  #send_input {
     width: 300px;
   }
 }
@@ -80,7 +101,7 @@ export default {
   .message {
     max-width: 270px;
   }
-  #send_input{
+  #send_input {
     width: 200px;
   }
 }

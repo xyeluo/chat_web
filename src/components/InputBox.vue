@@ -2,7 +2,11 @@
   <div id="inputBg">
     <div id="inputBox" class="interval">
       <div id="inputMain">
-        <form id="sendBox" @keydown.enter.prevent="send">
+        <form
+          id="sendBox"
+          @keydown.enter.prevent="send"
+          enctype="application/x-www-form-urlencoded"
+        >
           <div id="send_input" class="interval">
             <input
               type="text"
@@ -21,28 +25,61 @@
 
 <script>
 import moment from "moment";
+import axios from "axios";
+import qs from "qs";
+
 export default {
   name: "InputBox",
   data() {
     return {
+      from: "",
+      to: "",
       msg: "",
     };
   },
   methods: {
+    sendMsgToServer(increase) {
+      axios({
+        method: "post",
+        url: `//localhost:15672${window.location.pathname}increaseChatting`,
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        data: increase,
+      });
+    },
     send() {
       if (!this.msg) {
         return;
       }
-      let date = moment().format("H:mm");
+      let date = moment().format("YYYY-MM-DD HH:mm:ss");
       const message = {
-        who: "sender",
-        msg: this.msg,
-        date: date,
+        from: this.from,
+        to: this.to,
+        msg: {
+          who: "sender",
+          content: this.msg,
+          date,
+        },
       };
+
+      // console.log(message);
+      // console.log(this.$bus.$on);
+      console.log(message);
       // 把输入的消息传到聊天框组件
-      this.$bus.$emit("add",message);
+      this.$bus.$emit("add", message.msg);
+      this.sendMsgToServer(qs.stringify(message));
       this.msg = "";
     },
+  },
+  mounted() {
+    this.$bus.$on("initChatting", (parms) => {
+      this.from = parms.from;
+      this.to = parms.to;
+    });
+  },
+  beforeDestroy() {
+    this.$bus.$off("initChatting");
   },
 };
 </script>
