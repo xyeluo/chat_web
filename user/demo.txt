@@ -1,6 +1,0 @@
-{"from":"test_user02","to":"test_user01","msg":{"who":"sender","content":"hellow","date":"2022-03-06 09:46:52"}}
-{"from":"test_user02","to":"test_user01","msg":{"who":"sender","content":"就能打开","date":"2022-03-06 09:56:13"}}
-{"from":"test_user02","to":"test_user01","msg":{"who":"sender","content":"科尼塞克","date":"2022-03-06 09:56:18"}}
-{"from":"test_user01","to":"test_user02","msg":{"who":"sender","content":"fewioj","date":"2022-03-06 09:56:57"}}
-{"from":"test_user02","to":"test_user01","msg":{"who":"sender","content":"举动","date":"2022-03-06 09:57:08"}}
-{"from":"test_user01","to":"test_user02","msg":{"who":"sender","content":"wefijoj","date":"2022-03-06 10:07:29"}}
