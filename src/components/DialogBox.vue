@@ -2,7 +2,10 @@
   <div id="dialogBox">
     <div id="dialogMain" ref="scorll" class="interval">
       <div id="scorll" ref="scorllBox">
-        <transition-group appear enter-active-class="animate__animated animate__fadeIn">
+        <transition-group
+          appear
+          enter-active-class="animate__animated animate__fadeIn"
+        >
           <ItemBox v-for="(item, index) in sub" :key="index" :msg="item.msg" />
         </transition-group>
       </div>
@@ -17,6 +20,7 @@ export default {
   data() {
     return {
       sub: [],
+      subLength: "",
     };
   },
   methods: {
@@ -57,8 +61,8 @@ export default {
     sub: {
       // immediate: true,
       handler(newValue) {
-        /* console.log(JSON.stringify(newValue));
-        console.log(newValue); */
+        /* console.log(JSON.stringify(newValue));*/
+
         this.localStorageSave(JSON.stringify(newValue));
         this.$nextTick(() => {
           this.$refs.scorll.scrollTop = this.$refs.scorllBox.offsetHeight;
@@ -75,12 +79,13 @@ export default {
   mounted() {
     this.$bus.$on("add", this.add);
     this.$bus.$on("initChatting", (parms) => {
-      this.sub = [];
-      for (let index in parms.sub) {
-        this.sub.push(parms.sub[index]);
-        // console.log(parms.sub[index]);
+      if (parms.sub.length !== this.sub.length) {
+        this.sub = [];
+        for (let index in parms.sub) {
+          this.sub.push(parms.sub[index]);
+          // console.log(parms.sub[index]);
+        }
       }
-      // this.localStorageSave(parms.sub);
     });
     this.$nextTick(() => {
       this.localStorageRead();

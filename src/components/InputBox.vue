@@ -65,7 +65,6 @@ export default {
 
       // console.log(message);
       // console.log(this.$bus.$on);
-      console.log(message);
       // 把输入的消息传到聊天框组件
       this.$bus.$emit("add", message.msg);
       this.sendMsgToServer(qs.stringify(message));

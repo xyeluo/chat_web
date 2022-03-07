@@ -10,8 +10,8 @@ server.listen(80, () => {
 // 设置账号
 const user = {
   // 请求路径：对应的账号名
-  user_3701: "test_user01",
-  user_9268: "test_user02",
+  user_1001: "test_user01",
+  user_1002: "test_user02",
 };
 // 聊天记录储存文件
 const dbFilePath = "./user/demo.txt";
