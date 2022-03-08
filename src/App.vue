@@ -35,6 +35,9 @@ export default {
       return this.getChattingMessage;
     },
   },
+  beforeCreate(){
+    localStorage.clear();
+  },
   created() {
     setInterval(this.getChattingMessage(),5000);
     // this.getChattingMessage();
