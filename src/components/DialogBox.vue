@@ -32,10 +32,13 @@ export default {
           who: data.who,
           content: data.content,
           date: data.date,
+          avtar: data.avtar,
+          name: data.name,
         },
         id: String(len),
       };
       this.sub.push(c);
+      console.log(c);
     },
 
     // 读取本地储存的信息

@@ -35,13 +35,14 @@ export default {
       from: "",
       to: "",
       msg: "",
+      avtar: "",
     };
   },
   methods: {
     sendMsgToServer(increase) {
       axios({
         method: "post",
-        url: `http://112.74.44.5:15672${window.location.pathname}increaseChatting`,
+        url: `http://192.168.31.180:15672${window.location.pathname}increaseChatting`,
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
         },
@@ -60,9 +61,10 @@ export default {
           who: "sender",
           content: this.msg,
           date,
+          avtar: this.avtar,
+          name:this.from,
         },
       };
-
       // console.log(message);
       // console.log(this.$bus.$on);
       // 把输入的消息传到聊天框组件
@@ -75,6 +77,7 @@ export default {
     this.$bus.$on("initChatting", (parms) => {
       this.from = parms.from;
       this.to = parms.to;
+      this.avtar = parms.avtar;
     });
   },
   beforeDestroy() {

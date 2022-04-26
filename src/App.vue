@@ -25,7 +25,7 @@ export default {
     getChattingMessage() {
       axios({
         method: "get",
-        url: `http://127.0.0.1:15672${window.location.pathname}queryChatting`, 
+        url: `http://192.168.31.180:15672${window.location.pathname}queryChatting`, 
       }).then((res) => {
         // 初始化加载用户信息：from、to、sub
         this.$bus.$emit("initChatting", res.data);
@@ -34,11 +34,17 @@ export default {
       });
       return this.getChattingMessage;
     },
+    getInitInfo(){
+      axios({
+
+      })
+    }
   },
   beforeCreate(){
     localStorage.clear();
   },
   created() {
+    // this.getChattingMessage();
     setInterval(this.getChattingMessage(),5000);
     // this.getChattingMessage();
   },
@@ -82,7 +88,7 @@ export default {
   margin: 0 10px;
 }
 
-@media screen and (min-width: 1030px) {
+@media screen and (min-width: 1100px) {
   .message {
     max-width: 470px;
   }
@@ -90,9 +96,9 @@ export default {
     width: 420px;
   }
 }
-@media screen and (max-width: 1030px) {
+@media screen and (max-width: 1100px) {
   .message {
-    max-width: 370px;
+    max-width: 340px;
   }
   #send_input {
     width: 300px;
@@ -100,7 +106,7 @@ export default {
 }
 @media screen and (max-width: 825px) {
   .message {
-    max-width: 270px;
+    max-width: 240px;
   }
   #send_input {
     width: 200px;
@@ -109,6 +115,12 @@ export default {
 // 发送者样式
 .sender {
   $bg_borderColor: var(--itemBox_sender_bg);
+  div.userBox{
+    float: right;
+    .username{
+      visibility: hidden;
+    }
+  }
   div.messageContent {
     text-align: right; // 设置右聊天框
     // 设置聊天框背景、箭头右方向
@@ -126,6 +138,9 @@ export default {
 // 接收者样式
 .receiver {
   $bg_borderColor: var(--itemBox_receiver_bg);
+  div.userBox{
+    float: left;
+  }
   div.messageContent {
     text-align: left;
     // 设置聊天框背景、箭头左方向

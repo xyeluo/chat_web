@@ -1,7 +1,12 @@
 <template>
-  <div class="itemBox" :class="msg.who">
-    <div class="messageContent">
+  <div class="itemBox com-clearfix" :class="msg.who">
+    <div class="userBox">
+      <div class="username"><p>{{msg.name}}</p></div>
+      <div class="avtar com-user-none"><img :src="msg.avtar"/></div>
+    </div>
+    <div class="messageContent com-clearfix">
       <!-- <i class="arrow"></i> -->
+
       <div class="messageBox">
         <div class="message">
           <p>
@@ -16,7 +21,7 @@
 </template>
 
 <script>
-import moment from 'moment';
+import moment from "moment";
 export default {
   name: "ItemBox",
   /**
@@ -29,7 +34,8 @@ export default {
   props: ["msg"],
   data() {
     return {
-      time: moment(this.msg.date,moment.ISO_8601).format("HH:mm"),
+      time: moment(this.msg.date, moment.ISO_8601).format("HH:mm"),
+      avtar:"",
     };
   },
 };
@@ -42,24 +48,33 @@ export default {
 }
 
 .itemBox {
-  margin: 20px 0 35px;
+  margin: 20px 0 40px;
+  .userBox {
+    width: 35px;
+    height: 100%;
+    position: relative;
+    top: -25px;
+    .username {
+      color: var(--all_fontColor);
+      font-size: 14px;
+    }
+    img {
+      width: 100%;
+      height: 35px;
+      border-radius: 50%;
+      overflow: hidden;
+      object-fit: cover;
+    }
+  }
   .messageContent {
     // text-align: right;
 
-    &::after {
-      content: "";
-      display: block;
-      visibility: hidden;
-      clear: both;
-      height: 0;
-    }
-    *zoom: 1;
     .messageBox {
       display: inline-block;
       .message {
         box-sizing: border-box;
         min-height: 45px;
-        padding: 15px 15px;
+        padding: 12px 10px;
         border-radius: 5px;
         p {
           font-size: 15px;

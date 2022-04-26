@@ -1,18 +1,40 @@
 const express = require("express");
 // const { use } = require("express/lib/application");
 const fs = require("fs");
+const { userInfo } = require("os");
 const qs = require("qs");
 const readline = require("readline");
 const server = express();
-server.listen(15672, () => {
-  console.log("http://127.0.0.1:15672");
+// 服务器地址
+const serverIp = "127.0.0.1";
+const serverPort = "15672";
+
+const serverUrl = `http://${serverIp}:${serverPort}/`;
+server.listen(serverPort, () => {
+  console.log(serverUrl);
 });
+
 // 设置账号
 const user = {
-  // 请求路径：对应的账号名
-  user_1001: "test_user01",
-  user_1002: "test_user02",
+  user_1001: {
+    name: "test_user01",
+    avtar: `${serverUrl}user_1001/img/avtars/user01.jpg`,
+  },
+
+  user_1002: {
+    name: "test_user02",
+    avtar: `${serverUrl}user_1002/img/avtars/user02.jpg`,
+  },
+
+  user_1003: {
+    name: "test_user03",
+    avtar: `${serverUrl}user_1003/img/avtars/user03.jpg`,
+  },
 };
+
+Object.keys(user).forEach(ele => {
+  console.log(`访问网址：${serverUrl}${ele}/`);;
+});
 // 聊天记录储存文件
 const dbFilePath = "./user/demo.txt";
 
@@ -20,7 +42,7 @@ const dbFilePath = "./user/demo.txt";
 server.use((req, res, next) => {
   let name = req.url;
   name = name.split("/")[1];
-  console.log(name);
+  // console.log(name);
   if (!user[name]) {
     res.status(404).end();
     return;
@@ -34,20 +56,21 @@ server.use((req, res, next) => {
 server.use(express.urlencoded({ extended: false }));
 
 server.use("/:name", express.static("dist"));
+server.get("/:name/getUserInfo", (req, res, next) => {});
 // 查询用户信息
 server.get("/:name/queryChatting", (req, res, next) => {
   let connect = {
-    from: user[req.params.name],
+    from: user[req.params.name].name,
+    avtar: user[req.params.name].avtar,
   };
   for (let key in user) {
     if (user[key] !== user[req.params.name]) {
-      connect.to = user[key];
+      connect.to = "everyone";
       break;
     }
   }
-  console.log(connect);
+  console.log(connect.from);
   readFileToArr(connect.from, (data) => {
-    // console.log(data);
     connect.sub = data;
     res.status(200).send(connect);
   });
