@@ -48,7 +48,7 @@ export default {
 }
 
 .itemBox {
-  margin: 20px 0 40px;
+  margin: 30px 0 40px;
   .userBox {
     width: 35px;
     height: 100%;
@@ -57,6 +57,9 @@ export default {
     .username {
       color: var(--all_fontColor);
       font-size: 14px;
+    }
+    .avtar{
+      margin-top: 3px;
     }
     img {
       width: 100%;

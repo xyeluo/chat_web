@@ -42,7 +42,7 @@ const dbFilePath = "./user/demo.txt";
 server.use((req, res, next) => {
   let name = req.url;
   name = name.split("/")[1];
-  // console.log(name);
+  console.log(name);
   if (!user[name]) {
     res.status(404).end();
     return;
@@ -56,7 +56,6 @@ server.use((req, res, next) => {
 server.use(express.urlencoded({ extended: false }));
 
 server.use("/:name", express.static("dist"));
-server.get("/:name/getUserInfo", (req, res, next) => {});
 // 查询用户信息
 server.get("/:name/queryChatting", (req, res, next) => {
   let connect = {
