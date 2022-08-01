@@ -1,39 +1,31 @@
-const express = require("express");
-// const { use } = require("express/lib/application");
-const fs = require("fs");
-const { userInfo } = require("os");
-const qs = require("qs");
-const readline = require("readline");
-const server = express();
-// 设置服务器地址
-const serverIp = "127.0.0.1";
-const serverPort = "15672";
+const express = require("express"),
+  // const { use } = require("express/lib/application");
+  fs = require("fs"),
+  path = require("path"),
+  // { userInfo } = require("os"),
+  qs = require("qs"),
+  readline = require("readline"),
+  server = express(),
+  // 设置服务器地址
+  serverIp = "127.0.0.1",
+  serverPort = "15672",
 
-const serverUrl = `http://${serverIp}:${serverPort}/`;
+  serverUrl = `http://${serverIp}:${serverPort}/`;
+
 server.listen(serverPort, () => {
-  console.log("服务器地址："+serverUrl);
+  console.log("服务器地址：" + serverUrl);
 });
 
 // 设置账号
-const user = {
-  user_1001: {
-    name: "test_user01",
-    avtar: `${serverUrl}user_1001/avtars/user01.jpg`,
-  },
 
-  user_1002: {
-    name: "test_user02",
-    avtar: `${serverUrl}user_1002/avtars/user02.jpg`,
-  },
-
-  user_1003: {
-    name: "test_user03",
-    avtar: `${serverUrl}user_1003/img/avtars/user03.jpg`,
-  },
-};
+let user = require(path.resolve("./User.json"));
+console.log(user);
 // 控制台输出访问地址
 Object.keys(user).forEach(ele => {
-  console.log(`访问网址：${serverUrl}${ele}/`);;
+  user[ele].avtar = `${serverUrl}${ele}/${user[ele].avtar}`;
+
+  console.log(`访问网址：${serverUrl}${ele}/`);
+  console.log(user[ele].avtar);
 });
 // 聊天记录储存文件
 const dbFilePath = "./user/demo.txt";
@@ -66,7 +58,7 @@ server.get("/:name/queryChatting", (req, res, next) => {
       break;
     }
   }
-  console.log("用户："+connect.from);
+  console.log("用户：" + connect.from);
   readFileToArr(connect.from, (data) => {
     connect.sub = data;
     res.status(200).send(connect);

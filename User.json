@@ -1,0 +1,16 @@
+{
+  "user_1001": {
+    "name": "test_user01",
+    "avtar": "avtars/user01.jpg"
+  },
+
+  "user_1002": {
+    "name": "test_user02",
+    "avtar": "avtars/user02.jpg"
+  },
+
+  "user_1003": {
+    "name": "test_user03",
+    "avtar": "avtars/user03.jpg"
+  }
+}
