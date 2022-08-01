@@ -34,7 +34,7 @@ export default {
   props: ["msg"],
   data() {
     return {
-      time: moment(this.msg.date, moment.ISO_8601).format("HH:mm"),
+      time: moment(this.msg.date, moment.ISO_8601).format("YYYY-MM-DD HH:mm"),
       avtar:"",
     };
   },
