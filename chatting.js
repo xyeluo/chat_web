@@ -1,15 +1,12 @@
 const express = require("express"),
-  // const { use } = require("express/lib/application");
   fs = require("fs"),
   path = require("path"),
-  // { userInfo } = require("os"),
   qs = require("qs"),
   readline = require("readline"),
   server = express(),
   // 设置服务器地址
   serverIp = "127.0.0.1",
   serverPort = "15672",
-
   serverUrl = `http://${serverIp}:${serverPort}/`;
 
 server.listen(serverPort, () => {
@@ -17,32 +14,46 @@ server.listen(serverPort, () => {
 });
 
 // 设置账号
+let user = require(path.resolve("./User.json")),
+  // 在线用户
+  onlineUser = [];
 
-let user = require(path.resolve("./User.json"));
-console.log(user);
-// 控制台输出访问地址
 Object.keys(user).forEach(ele => {
   user[ele].avtar = `${serverUrl}${ele}/${user[ele].avtar}`;
-
+  // 控制台输出访问地址
   console.log(`访问网址：${serverUrl}${ele}/`);
-  console.log(user[ele].avtar);
 });
 // 聊天记录储存文件
 const dbFilePath = "./user/demo.txt";
 
+
 // 对用户首页路径判断
 server.use((req, res, next) => {
-  let name = req.url;
-  name = name.split("/")[1];
-  if (!user[name]) {
-    res.status(404).end();
-    return;
-  } else {
+  let reqParam = req.url;
+  reqParam = reqParam.split("/")[1];
+  if (user[reqParam] || reqParam == "online") {
     res.setHeader("Access-Control-Allow-Origin", "*");
     // res.setHeader("Cache-Control", "max-age=200");
     next();
+    return;
   }
+  res.status(404).end();
 });
+// 在线人数
+server.get("/online", (req, res, next) => {
+  onlineUser = [...new Set(onlineUser)];
+  let num = onlineUser.length;
+  if (num) {
+    res.status(200).send(num.toString());
+    return;
+  }
+  res.status(200).send("1");
+})
+// 每隔五十秒清空在线人数，重新计数
+setInterval(() => {
+  onlineUser = [];
+}, 50000);
+
 server.use(express.urlencoded({ extended: false }));
 
 server.use("/:name", express.static("dist"));
@@ -58,12 +69,14 @@ server.get("/:name/queryChatting", (req, res, next) => {
       break;
     }
   }
-  console.log("用户：" + connect.from);
+  onlineUser.push(connect.from);
+  // console.log("当前请求用户：" + connect.from);
   readFileToArr(connect.from, (data) => {
     connect.sub = data;
     res.status(200).send(connect);
   });
-});
+})
+
 // 储存信息
 server.post("/:name/increaseChatting", (req, res, next) => {
   if (JSON.stringify(req.body) === "{}") {

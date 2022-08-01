@@ -7,8 +7,8 @@
           <span class="dot"></span>
           <span class="dot"></span>
         </div>
-        <div id="sign"></div>
         <div id="timeBox">{{ time }}</div>
+        <div id="sign">在线人数：{{ onlineNum }}</div>
       </div>
       <div id="userBox">
         <h3 id="user">{{ user }}</h3>
@@ -25,18 +25,22 @@ export default {
     return {
       user: "",
       time: "",
+      onlineNum: "",
     };
   },
   methods: {
-    getNowTime() {
+    _getNowTime() {
       this.time = moment().format("HH:mm");
-      return this.getNowTime;
+      return this._getNowTime;
     },
   },
   mounted() {
-    setInterval(this.getNowTime(), 1000);
+    setInterval(this._getNowTime(), 1000);
     this.$bus.$on("initChatting", (parms) => {
       this.user = parms.from;
+    });
+    this.$bus.$on("setOnlineNum", (parms) => {
+      this.onlineNum = parms;
     });
   },
   beforeDestroy() {
@@ -56,12 +60,14 @@ export default {
   border-radius: 0 0 5px 5px;
   border-bottom: 2px solid var(--top_borderBottom);
   background-color: var(--top_inputBox_bg);
+  color: var(--all_fontColor);
   #topMain {
     height: 100%;
     #decorateBox {
       $line_height: 30px;
       height: $line_height;
       display: flex;
+      justify-content: space-between;
       #dotBox {
         flex: 1.5;
         max-width: 80px;
@@ -85,12 +91,20 @@ export default {
           }
         }
       }
+      #sign,
       #timeBox {
-        flex: 5.5;
-        text-align: center;
         line-height: $line_height;
-        color: var(--all_fontColor);
         user-select: none;
+        text-align: center;
+        flex: 1;
+      }
+      #sign {
+        opacity: 0.7;
+        max-width: 110px;
+        font-size: 13px;
+      }
+      #timeBox {
+        min-width: 130px;
       }
     }
     #userBox {
@@ -101,7 +115,6 @@ export default {
       #user {
         text-align: center;
         font-size: 20px;
-        color: var(--all_fontColor);
         font-weight: 400;
       }
     }

@@ -12,7 +12,7 @@
 import TopBox from "./components/TopBox.vue";
 import InputBox from "./components/InputBox.vue";
 import DialogBox from "./components/DialogBox.vue";
-import axios from "axios";
+
 export default {
   name: "App",
 
@@ -23,29 +23,34 @@ export default {
   },
   methods: {
     getChattingMessage() {
-      axios({
+      this.$axios({
         method: "get",
-        url: `http://127.0.0.1:15672${window.location.pathname}queryChatting`, 
+        url: `${window.location.pathname}queryChatting`,
       }).then((res) => {
         // 初始化加载用户信息：from、to、sub
         this.$bus.$emit("initChatting", res.data);
         // console.log(res.data);
         // console.log(res.data);
       });
-      return this.getChattingMessage;
     },
-    getInitInfo(){
-      axios({
-
-      })
-    }
+    _getOnlineNum() {
+      this.$axios({
+        methods: "get",
+        url: "online",
+      }).then((res) => {
+        this.$bus.$emit("setOnlineNum", res.data);
+      });
+    },
   },
-  beforeCreate(){
+  beforeCreate() {
     localStorage.clear();
   },
   created() {
     // this.getChattingMessage();
-    setInterval(this.getChattingMessage(),5000);
+    setInterval(() => {
+      this.getChattingMessage();
+      this._getOnlineNum();
+    }, 5000);
     // this.getChattingMessage();
   },
 };
@@ -115,9 +120,9 @@ export default {
 // 发送者样式
 .sender {
   $bg_borderColor: var(--itemBox_sender_bg);
-  div.userBox{
+  div.userBox {
     float: right;
-    .username{
+    .username {
       visibility: hidden;
     }
   }
@@ -138,7 +143,7 @@ export default {
 // 接收者样式
 .receiver {
   $bg_borderColor: var(--itemBox_receiver_bg);
-  div.userBox{
+  div.userBox {
     float: left;
   }
   div.messageContent {

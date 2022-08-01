@@ -25,7 +25,6 @@
 
 <script>
 import moment from "moment";
-import axios from "axios";
 import qs from "qs";
 
 export default {
@@ -40,9 +39,9 @@ export default {
   },
   methods: {
     sendMsgToServer(increase) {
-      axios({
+      this.$axios({
         method: "post",
-        url: `http://127.0.0.1:15672${window.location.pathname}increaseChatting`,
+        url: `${window.location.pathname}increaseChatting`,
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
         },
@@ -62,7 +61,7 @@ export default {
           content: this.msg,
           date,
           avtar: this.avtar,
-          name:this.from,
+          name: this.from,
         },
       };
       // console.log(message);

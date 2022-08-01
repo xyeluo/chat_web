@@ -1,8 +1,12 @@
 import Vue from "vue";
 import App from "./App.vue";
+import axios from "axios";
 
 import "font-awesome/css/font-awesome.min.css";
 import "animate.css"
+
+axios.defaults.baseURL = "http://127.0.0.1:15672";
+Vue.prototype.$axios = axios;
 
 Vue.config.productionTip = false;
 

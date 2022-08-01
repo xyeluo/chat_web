@@ -73,12 +73,6 @@ export default {
       },
     },
   },
-  // created(){
-  //   axios({
-  //     method:'get',
-  //     url
-  //   })
-  // },
   mounted() {
     this.$bus.$on("add", this.add);
     this.$bus.$on("initChatting", (parms) => {
