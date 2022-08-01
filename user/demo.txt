@@ -1,7 +1,7 @@
-{"from":"test_user01","to":"everyone","msg":{"who":"sender","content":"21","date":"2022-04-26 22:13:00","avtar":"http://192.168.31.180:15672/user_1001/img/avtars/user01.jpg","name":"test_user01"}}
-{"from":"test_user02","to":"everyone","msg":{"who":"sender","content":"21","date":"2022-04-26 22:13:04","avtar":"http://192.168.31.180:15672/user_1002/img/avtars/user02.jpg","name":"test_user02"}}
-{"from":"test_user02","to":"everyone","msg":{"who":"sender","content":"jnjjsn","date":"2022-04-26 22:14:54","avtar":"http://192.168.31.180:15672/user_1002/img/avtars/user02.jpg","name":"test_user02"}}
-{"from":"test_user02","to":"everyone","msg":{"who":"sender","content":"那次我想问哪位i虚拟希望你西樵镇米","date":"2022-04-26 22:16:08","avtar":"http://192.168.31.180:15672/user_1002/img/avtars/user02.jpg","name":"test_user02"}}
-{"from":"test_user01","to":"everyone","msg":{"who":"sender","content":"i-u","date":"2022-04-26 22:16:28","avtar":"http://192.168.31.180:15672/user_1001/img/avtars/user01.jpg","name":"test_user01"}}
-{"from":"test_user03","to":"everyone","msg":{"who":"sender","content":"32329","date":"2022-04-26 22:31:57","avtar":"http://192.168.31.180:15672/user_1003/img/avtars/user03.jpg","name":"test_user03"}}
-{"from":"test_user02","to":"everyone","msg":{"who":"sender","content":"328","date":"2022-04-26 23:23:40","avtar":"http://127.0.0.1:15672/user_1002/img/avtars/user02.jpg","name":"test_user02"}}
+{"from":"test_user01","to":"everyone","msg":{"who":"sender","content":"21","date":"2022-04-26 22:13:00","avtar":"http://127.0.0.1:15672/user_1001/avtars/user01.jpg","name":"test_user01"}}
+{"from":"test_user02","to":"everyone","msg":{"who":"sender","content":"21","date":"2022-04-26 22:13:04","avtar":"http://127.0.0.1:15672/user_1002/avtars/user02.jpg","name":"test_user02"}}
+{"from":"test_user02","to":"everyone","msg":{"who":"sender","content":"jnjjsn","date":"2022-04-26 22:14:54","avtar":"http://127.0.0.1:15672/user_1002/avtars/user02.jpg","name":"test_user02"}}
+{"from":"test_user02","to":"everyone","msg":{"who":"sender","content":"那次我想问哪位i虚拟希望你西樵镇米","date":"2022-04-26 22:16:08","avtar":"http://127.0.0.1:15672/user_1002/avtars/user02.jpg","name":"test_user02"}}
+{"from":"test_user01","to":"everyone","msg":{"who":"sender","content":"i-u","date":"2022-04-26 22:16:28","avtar":"http://127.0.0.1:15672/user_1001/avtars/user01.jpg","name":"test_user01"}}
+{"from":"test_user03","to":"everyone","msg":{"who":"sender","content":"32329","date":"2022-04-26 22:31:57","avtar":"http://127.0.0.1:15672/user_1003/avtars/user03.jpg","name":"test_user03"}}
+{"from":"test_user02","to":"everyone","msg":{"who":"sender","content":"328","date":"2022-04-26 23:23:40","avtar":"http://127.0.0.1:15672/user_1002/avtars/user02.jpg","name":"test_user02"}}

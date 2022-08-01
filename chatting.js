@@ -5,25 +5,25 @@ const { userInfo } = require("os");
 const qs = require("qs");
 const readline = require("readline");
 const server = express();
-// 服务器地址
+// 设置服务器地址
 const serverIp = "127.0.0.1";
 const serverPort = "15672";
 
 const serverUrl = `http://${serverIp}:${serverPort}/`;
 server.listen(serverPort, () => {
-  console.log(serverUrl);
+  console.log("服务器地址："+serverUrl);
 });
 
 // 设置账号
 const user = {
   user_1001: {
     name: "test_user01",
-    avtar: `${serverUrl}user_1001/img/avtars/user01.jpg`,
+    avtar: `${serverUrl}user_1001/avtars/user01.jpg`,
   },
 
   user_1002: {
     name: "test_user02",
-    avtar: `${serverUrl}user_1002/img/avtars/user02.jpg`,
+    avtar: `${serverUrl}user_1002/avtars/user02.jpg`,
   },
 
   user_1003: {
@@ -31,7 +31,7 @@ const user = {
     avtar: `${serverUrl}user_1003/img/avtars/user03.jpg`,
   },
 };
-
+// 控制台输出访问地址
 Object.keys(user).forEach(ele => {
   console.log(`访问网址：${serverUrl}${ele}/`);;
 });
@@ -42,7 +42,6 @@ const dbFilePath = "./user/demo.txt";
 server.use((req, res, next) => {
   let name = req.url;
   name = name.split("/")[1];
-  console.log(name);
   if (!user[name]) {
     res.status(404).end();
     return;
@@ -51,7 +50,6 @@ server.use((req, res, next) => {
     // res.setHeader("Cache-Control", "max-age=200");
     next();
   }
-  // console.log(req.url.match(/^(user)*/g));
 });
 server.use(express.urlencoded({ extended: false }));
 
@@ -68,7 +66,7 @@ server.get("/:name/queryChatting", (req, res, next) => {
       break;
     }
   }
-  console.log(connect.from);
+  console.log("用户："+connect.from);
   readFileToArr(connect.from, (data) => {
     connect.sub = data;
     res.status(200).send(connect);
@@ -83,22 +81,6 @@ server.post("/:name/increaseChatting", (req, res, next) => {
   }
   // res.setHeader("Access-Control-Allow-Headers", "content-type");
   let getUseMessage = qs.parse(req.body);
-  /* redFail((data) => {
-    let all = new Array();
-    if (!data) {
-
-      appendFile(JSON.stringify(toSaveMessage));
-      console.log(1);
-
-      res.status(200).end();
-      return;
-    }
-    all.push(data);
-    all.push(toSaveMessage);
-    appendFile(all);
-    res.status(200).end();
-  }); */
-
   appendFile(`${JSON.stringify(getUseMessage)}\n`);
   res.status(200).end();
 });
