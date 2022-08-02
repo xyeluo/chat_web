@@ -3,11 +3,13 @@ const express = require("express"),
   path = require("path"),
   qs = require("qs"),
   readline = require("readline"),
-  server = express(),
   // 设置服务器地址
   serverIp = "127.0.0.1",
   serverPort = "15672",
-  serverUrl = `http://${serverIp}:${serverPort}/`;
+  // 聊天记录储存路径
+  dbFilePath = "./user/demo.txt",
+  serverUrl = `http://${serverIp}:${serverPort}/`,
+  server = express();
 
 server.listen(serverPort, () => {
   console.log("服务器地址：" + serverUrl);
@@ -23,9 +25,6 @@ Object.keys(user).forEach(ele => {
   // 控制台输出访问地址
   console.log(`访问网址：${serverUrl}${ele}/`);
 });
-// 聊天记录储存文件
-const dbFilePath = "./user/demo.txt";
-
 
 // 对用户首页路径判断
 server.use((req, res, next) => {
@@ -37,7 +36,7 @@ server.use((req, res, next) => {
     next();
     return;
   }
-  res.status(404).end();
+  res.status(404).end("Not found");
 });
 // 在线人数
 server.get("/online", (req, res, next) => {

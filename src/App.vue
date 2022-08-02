@@ -29,8 +29,6 @@ export default {
       }).then((res) => {
         // 初始化加载用户信息：from、to、sub
         this.$bus.$emit("initChatting", res.data);
-        // console.log(res.data);
-        // console.log(res.data);
       });
     },
     _getOnlineNum() {
@@ -46,12 +44,10 @@ export default {
     localStorage.clear();
   },
   created() {
-    // this.getChattingMessage();
     setInterval(() => {
       this.getChattingMessage();
       this._getOnlineNum();
     }, 5000);
-    // this.getChattingMessage();
   },
 };
 </script>
@@ -130,6 +126,8 @@ export default {
     text-align: right; // 设置右聊天框
     // 设置聊天框背景、箭头右方向
     div.message {
+      display: inline-block;
+      text-align: right;
       background-color: $bg_borderColor;
       color: var(--all_fontColor);
     }

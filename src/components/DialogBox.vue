@@ -80,13 +80,10 @@ export default {
         this.sub = [];
         for (let index in parms.sub) {
           this.sub.push(parms.sub[index]);
-          // console.log(parms.sub[index]);
         }
       }
     });
-    this.$nextTick(() => {
-      this.localStorageRead();
-    });
+    this.localStorageRead();
   },
   beforeDestroy() {
     this.$bus.$off("add");

@@ -1,8 +1,10 @@
 <template>
   <div class="itemBox com-clearfix" :class="msg.who">
     <div class="userBox">
-      <div class="username"><p>{{msg.name}}</p></div>
-      <div class="avtar com-user-none"><img :src="msg.avtar"/></div>
+      <div class="username">
+        <p>{{ msg.name }}</p>
+      </div>
+      <div class="avtar com-user-none"><img :src="msg.avtar" /></div>
     </div>
     <div class="messageContent com-clearfix">
       <!-- <i class="arrow"></i> -->
@@ -34,9 +36,40 @@ export default {
   props: ["msg"],
   data() {
     return {
-      time: moment(this.msg.date, moment.ISO_8601).format("YYYY-MM-DD HH:mm"),
-      avtar:"",
+      avtar: "",
+      week: [
+        "星期日",
+        "星期一",
+        "星期二",
+        "星期三",
+        "星期四",
+        "星期五",
+        "星期六",
+      ],
     };
+  },
+  computed: {
+    time() {
+      let time = moment(this.msg.date),
+        now = moment();
+      // 信息属于当天仅显示小时、分钟，超过一天添加星期，超过一周显示月份加日期，超过一年显示年份
+      time =
+        now.diff(time, "days") < 1
+          ? time.format("HH:mm")
+          : moment().startOf("week") < time
+          ? this.week[time.format("d")] + time.format(" HH:mm")
+          : now.diff(time, "years") < 1
+          ? time.format("MM-DD HH:mm")
+          : time.format("YYYY-MM-DD HH:mm");
+      return time;
+    },
+  },
+  beforeMount() {
+    moment.updateLocale("zh-CN", {
+      week: {
+        dow: 1,
+      },
+    });
   },
 };
 </script>
@@ -58,7 +91,7 @@ export default {
       color: var(--all_fontColor);
       font-size: 14px;
     }
-    .avtar{
+    .avtar {
       margin-top: 3px;
     }
     img {
@@ -76,6 +109,7 @@ export default {
       display: inline-block;
       .message {
         box-sizing: border-box;
+        width: fit-content;
         min-height: 45px;
         padding: 12px 10px;
         border-radius: 5px;
