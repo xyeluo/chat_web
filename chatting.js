@@ -3,22 +3,15 @@ const express = require("express"),
   path = require("path"),
   qs = require("qs"),
   readline = require("readline"),
-  // 设置服务器地址
-  serverIp = "127.0.0.1",
+  serverIp = "127.0.0.1", // 设置后台服务器地址、端口
   serverPort = "15672",
-  // 聊天记录储存路径
-  dbFilePath = "./user/demo.txt",
+  dbFilePath = "./user/demo.txt", // 聊天记录储存路径
   serverUrl = `http://${serverIp}:${serverPort}/`,
   server = express();
 
-server.listen(serverPort, () => {
-  console.log("服务器地址：" + serverUrl);
-});
-
 // 设置账号
 let user = require(path.resolve("./User.json")),
-  // 在线用户
-  onlineUser = [];
+  onlineUser = [];// 在线用户
 
 Object.keys(user).forEach(ele => {
   user[ele].avtar = `${serverUrl}${ele}/${user[ele].avtar}`;
@@ -100,14 +93,7 @@ function appendFile(parms) {
     }
   });
 }
-function redFail(callback) {
-  fs.readFile(dbFilePath, "utf-8", (err, data) => {
-    if (err) {
-      return console.log(`文件读取失败失败 ${err.message}`);
-    }
-    callback(data);
-  });
-}
+
 function readFileToArr(who, callback) {
   let fRead = fs.createReadStream(dbFilePath);
   let objReadline = readline.createInterface({
@@ -125,3 +111,7 @@ function readFileToArr(who, callback) {
     callback(arr);
   });
 }
+
+server.listen(serverPort, () => {
+  console.log("服务器地址：" + serverUrl);
+});

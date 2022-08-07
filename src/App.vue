@@ -34,7 +34,7 @@ export default {
     _getOnlineNum() {
       this.$axios({
         methods: "get",
-        url: "online",
+        url: "../online",
       }).then((res) => {
         this.$bus.$emit("setOnlineNum", res.data);
       });
@@ -44,10 +44,11 @@ export default {
     localStorage.clear();
   },
   created() {
-    setInterval(() => {
+    setInterval((() => {
+      console.log(1);
       this.getChattingMessage();
       this._getOnlineNum();
-    }, 5000);
+    })(), 5000);
   },
 };
 </script>
