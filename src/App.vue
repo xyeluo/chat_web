@@ -44,11 +44,12 @@ export default {
     localStorage.clear();
   },
   created() {
-    setInterval((() => {
-      console.log(1);
+    const init = () => {
       this.getChattingMessage();
       this._getOnlineNum();
-    })(), 5000);
+      return init;
+    };
+    setInterval(init(), 5000);
   },
 };
 </script>
