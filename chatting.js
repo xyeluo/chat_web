@@ -3,8 +3,8 @@ const express = require("express"),
   path = require("path"),
   qs = require("qs"),
   readline = require("readline"),
-  serverIp = "127.0.0.1", // 设置后台服务器地址、端口
-  serverPort = "15672",
+  serverIp = "127.0.0.1", // 设置后台服务器地址
+  serverPort = "15672",  // 端口
   dbFilePath = "./user/demo.txt", // 聊天记录储存路径
   serverUrl = `http://${serverIp}:${serverPort}/`,
   server = express();
@@ -14,7 +14,7 @@ let user = require(path.resolve("./User.json")),
   onlineUser = [];// 在线用户
 
 Object.keys(user).forEach(ele => {
-  user[ele].avtar = `${serverUrl}${ele}/${user[ele].avtar}`;
+  user[ele].avtar = `/${ele}/${user[ele].avtar}`;
   // 控制台输出访问地址
   console.log(`访问网址：${serverUrl}${ele}/`);
 });
@@ -33,13 +33,15 @@ server.use((req, res, next) => {
 });
 // 在线人数
 server.get("/online", (req, res, next) => {
-  onlineUser = [...new Set(onlineUser)];
-  let num = onlineUser.length;
-  if (num) {
-    res.status(200).send(num.toString());
-    return;
-  }
-  res.status(200).send("1");
+  setTimeout(() => {
+    onlineUser = [...new Set(onlineUser)];
+    let num = onlineUser.length;
+    if (num) {
+      res.status(200).send(num.toString());
+      return;
+    }
+    res.status(200).send("1");
+  }, 500);
 })
 // 每隔五十秒清空在线人数，重新计数
 setInterval(() => {
@@ -55,13 +57,13 @@ server.get("/:name/queryChatting", (req, res, next) => {
     from: user[req.params.name].name,
     avtar: user[req.params.name].avtar,
   };
+  onlineUser.push(connect.from);
   for (let key in user) {
     if (user[key] !== user[req.params.name]) {
       connect.to = "everyone";
       break;
     }
   }
-  onlineUser.push(connect.from);
   // console.log("当前请求用户：" + connect.from);
   readFileToArr(connect.from, (data) => {
     connect.sub = data;
