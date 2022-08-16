@@ -26,9 +26,11 @@
 #### 用户文件User.json
 
 ```
+文件路径：./user/User.json
+
 例：
 {
-  "user_1001": {      //请求路径，当前用户请求路径为：http://ip:端口/user_1001/
+  "user_1001": {      //请求路径(末尾要加斜杠！)，当前用户请求路径为：http://ip:端口/user_1001/
     "name": "test_user01",       //对应的用户名
     "avtar": "avtars/user01.jpg" //用户头像路径
   },

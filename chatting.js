@@ -3,14 +3,14 @@ const express = require("express"),
   path = require("path"),
   qs = require("qs"),
   readline = require("readline"),
-  serverIp = "127.0.0.1", // 设置后台服务器地址
+  serverIp = "127.0.0.1", // 设置显示的后台服务器地址
   serverPort = "15672",  // 端口
   dbFilePath = "./user/demo.txt", // 聊天记录储存路径
-  serverUrl = `http://${serverIp}:${serverPort}/`,
+  serverUrl = `${serverIp}:${serverPort}/`,
   server = express();
 
 // 设置账号
-let user = require(path.resolve("./User.json")),
+let user = require(path.resolve("./user/User.json")),
   onlineUser = [];// 在线用户
 
 Object.keys(user).forEach(ele => {
@@ -114,6 +114,4 @@ function readFileToArr(who, callback) {
   });
 }
 
-server.listen(serverPort, () => {
-  console.log("服务器地址：" + serverUrl);
-});
+server.listen(serverPort);

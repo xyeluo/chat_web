@@ -6,7 +6,7 @@ module.exports = defineConfig({
   pages: {
     index: {
       entry: "./src/main.js",
-      title: "demo",
+      title: "在线群聊",
     },
   },
   publicPath: process.env.NODE_ENV === "production" ? "./" : "/",
