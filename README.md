@@ -10,7 +10,7 @@
 
 > 使用axios每隔五秒轮询获取用户聊天信息
 
-> 显示在线用户
+> 显示在线用户数量
 
 ![](https://img-blog.csdnimg.cn/eeaf9fbfe64541e5878469870ca05f0b.png)
 
