@@ -42,13 +42,14 @@
 ```
 当前路径应在chat_web文件夹下
 npm install
-node chating.js
+node chatting.js
 npm run serve //默认8080端口
 ```
 
 ## 访问
 
 ```
+npm run build && node chatting.js
 默认三个用户的请求路径分别为（路径末尾要加斜杠！）：
 http://127.0.0.1:15672/user_1001/
 http://127.0.0.1:15672/user_1002/
